@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opuscolator</title>
+</head>
+<body>
+    <h1>Benvenuto in Opuscolator!</h1>
+    <form id="opuscolator-form">
+        <label for="total-pages">Inserisci il numero totale di pagine:</label>
+        <input type="number" id="total-pages" name="total-pages" required>
+        <button type="submit">Calcola</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('opuscolator-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const pages = document.getElementById('total-pages').value;
+            fetch('/calculate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ total_pages: pages }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.result;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
