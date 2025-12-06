@@ -27,7 +27,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('result').innerText = data.result;
+                document.getElementById('result').innerText = JSON.stringify(data.result);
             })
             .catch((error) => {
                 console.error('Error:', error);
